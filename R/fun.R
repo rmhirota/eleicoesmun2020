@@ -49,12 +49,12 @@ download_uf_mun <- function(mun, uf, cargo = "prefeito", verbose = FALSE) {
 #'
 #' @return baixa arquivos em CSV
 #'
-download_uf_ <- function(estado, cargo, verbose = FALSE) {
+download_uf_ <- function(estado, cargo_pretendido, verbose = FALSE) {
   cod <- ibge_tse %>%
     dplyr::filter(uf == estado) %>%
     with(cod_tse_5)
   estado <- tolower(estado)
-  cand <- purrr::map_df(cod, download_uf_mun, uf = estado, verbose = verbose) %>%
+  cand <- purrr::map_df(cod, download_uf_mun, uf = estado, cargo = cargo_pretendido, verbose = verbose) %>%
     dplyr::mutate(uf = toupper(estado), cargo_pretendido = toupper(cargo)) %>%
     dplyr::mutate(dplyr::across(.fns = stringr::str_squish))
 

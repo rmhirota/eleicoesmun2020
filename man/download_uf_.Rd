@@ -4,14 +4,14 @@
 \alias{download_uf_}
 \title{Download dados por UF}
 \usage{
-download_uf_(estado, cargo, verbose = FALSE)
+download_uf_(estado, cargo_pretendido, verbose = FALSE)
 }
 \arguments{
 \item{estado}{sigla UF}
 
-\item{cargo}{cargo pretendido c("prefeito", "vereador")}
-
 \item{verbose}{TRUE para ver municípios baixados}
+
+\item{cargo}{cargo pretendido c("prefeito", "vereador")}
 }
 \value{
 baixa arquivos em CSV
