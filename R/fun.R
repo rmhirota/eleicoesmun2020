@@ -29,9 +29,9 @@ download_uf_mun <- function(mun, uf, cargo = "prefeito", verbose = FALSE) {
       jsonlite::fromJSON()
     cand <- j %>% dplyr::as_tibble()
     aux <- cand %>% with(cand) %>%
-      stats::setNames(paste0("cand_", names(.)))
+      dplyr::rename_with(~paste0("cand_", .), .cols = dplyr::everything())
     cand <- cand %>%
-      stats::setNames(paste0("raiz_", names(.))) %>%
+      dplyr::rename_with(~paste0("raiz_", .), .cols = dplyr::everything())
       dplyr::select(-raiz_cand) %>%
       dplyr::bind_cols((aux))
 
