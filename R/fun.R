@@ -27,12 +27,14 @@ download_uf_mun <- function(mun, uf, cargo = "prefeito", verbose = FALSE) {
     j <-  req %>%
       httr::content(as = "text", encoding = "UTF-8") %>%
       jsonlite::fromJSON()
-    turno <- j$t
-    tf <- j$tf
-    cand <- j %>%
-      purrr::pluck("cand") %>%
-      dplyr::as_tibble() %>%
-      dplyr::mutate(turno = turno, totalizacao_final = tf)
+    cand <- j %>% dplyr::as_tibble()
+    aux <- cand %>% with(cand) %>%
+      stats::setNames(paste0("cand_", names(.)))
+    cand <- cand %>%
+      stats::setNames(paste0("raiz_", names(.))) %>%
+      dplyr::select(-raiz_cand) %>%
+      dplyr::bind_cols((aux))
+
   } else {
     if (verbose) {cat("request fail :(\n")}
     dplyr::tibble()
@@ -53,7 +55,7 @@ download_uf_ <- function(estado, cargo, verbose = FALSE) {
     with(cod_tse_5)
   estado <- tolower(estado)
   cand <- purrr::map_df(cod, download_uf_mun, uf = estado, verbose = verbose) %>%
-    dplyr::mutate(uf = estado, cargo_pretendido = cargo)
+    dplyr::mutate(uf = estado, cargo_pretendido = toupper(cargo))
 
   if (verbose == TRUE) {
     cat(paste0("Arquivo salvo em ", path))
