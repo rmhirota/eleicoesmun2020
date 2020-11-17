@@ -4,7 +4,7 @@
 \alias{download_uf}
 \title{Download dados por UF}
 \usage{
-download_uf(estado, cargo, path, verbose = FALSE)
+download_uf(estado, cargo, path = NULL, verbose = FALSE)
 }
 \arguments{
 \item{estado}{sigla UF (ou "todos")}
