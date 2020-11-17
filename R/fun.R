@@ -48,7 +48,6 @@ download_uf_mun <- function(mun, uf, cargo = "prefeito", verbose = FALSE) {
 #' @return baixa arquivos em CSV
 #'
 download_uf_ <- function(estado, cargo, verbose = FALSE) {
-  dir.create(path, showWarnings = FALSE)
   cod <- ibge_tse %>%
     dplyr::filter(uf == estado) %>%
     with(cod_tse_5)
@@ -85,6 +84,7 @@ download_uf <- function(estado, cargo, path = NULL, verbose = FALSE) {
   }
 
   if(!is.null(path)) {
+    dir.create(path, showWarnings = FALSE)
     path <- paste0(path, "/", cargo, "_", estado, ".csv") %>%
       gsub("//", "/", .)
     readr::write_csv(t, path)
