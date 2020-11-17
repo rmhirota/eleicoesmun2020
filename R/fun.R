@@ -55,7 +55,8 @@ download_uf_ <- function(estado, cargo, verbose = FALSE) {
     with(cod_tse_5)
   estado <- tolower(estado)
   cand <- purrr::map_df(cod, download_uf_mun, uf = estado, verbose = verbose) %>%
-    dplyr::mutate(uf = estado, cargo_pretendido = toupper(cargo))
+    dplyr::mutate(uf = toupper(estado), cargo_pretendido = toupper(cargo)) %>%
+    dplyr::mutate(dplyr::across(.fns = stringr::str_squish))
 
   if (verbose == TRUE) {
     cat(paste0("Arquivo salvo em ", path))

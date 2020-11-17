@@ -23,4 +23,5 @@ Imports:
     dplyr,
     tibble,
     magrittr,
-    jsonlite
+    jsonlite,
+    stringr
