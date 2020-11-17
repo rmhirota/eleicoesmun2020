@@ -75,10 +75,9 @@ download_uf_ <- function(estado, cargo, path = "csv", verbose = FALSE) {
 #'
 #' @export
 #'
-download_uf <- function(estado, cargo, verbose = FALSE, path) {
+download_uf <- function(estado, cargo, path, verbose = FALSE) {
 
   if(estado == "todos") {
-    utils::data("ibge_tse", package = "eleicoesmun2020", envir = environment())
     ibge_tse %>%
       with(uf) %>%
       unique() %>%
@@ -108,3 +107,4 @@ download_uf <- function(estado, cargo, verbose = FALSE, path) {
 #' @name ibge_tse
 "ibge_tse"
 
+utils::data("ibge_tse", package = "eleicoesmun2020", envir = environment())
