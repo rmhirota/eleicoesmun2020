@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 Uma forma mais fácil de ler os dados simplificados das eleições municipais de 2020 do TSE.
+Os dados são puxados diretamente da API do TSE. 
 
 ## Instalação
 
@@ -30,16 +31,36 @@ devtools::install_github("rmhirota/eleicoesmun2020")
 ```
 ## Exemplo
 
-Baixando dados de eleições à prefetura em Roraima:
+Baixando dados de eleições à prefeitura em Roraima:
 
-```{r example}
+```{r example1}
 library(eleicoesmun2020)
 
 download_uf(estado = "RR", cargo = "prefeito", path = "csv")
 ```
 
-A função retornará uma tabela com os dados, além de salvar um arquivo .csv na pasta indicada em ```path```.
+A função retornará uma tabela com os dados, além de salvar um arquivo .csv na pasta indicada em ```path```. Caso não queira salvar o arquivo, basta ignorar o parâmetro:
+
+```{r example2}
+library(eleicoesmun2020)
+
+download_uf(estado = "RR", cargo = "prefeito")
+```
 
 Para baixar informações de _todos_ os estados, basta usar o parâmetro ```estado = "todos"```.
 
+## Principais variáveis
 
+```{r variaveis, echo = FALSE}
+tibble::tribble(
+              ~coluna,                       ~descricao,
+             "sqcand",          "id único do candidato",
+                 "nm",              "nome do candidato",
+                  "e",            "eleito (sim ou não)",
+  "totalizacao_final", "totalização final (sim ou não)"
+  ) %>%
+  knitr::kable()
+
+```
+
+Para entender as informações de cada coluna, verifique a [documentação do TSE](https://www.tse.jus.br/eleicoes/eleicoes-2020/arquivos/ea04-arquivo-de-resultado-consolidado-01-2020/rybena_pdf?file=https://www.tse.jus.br/eleicoes/eleicoes-2020/arquivos/ea04-arquivo-de-resultado-consolidado-01-2020/at_download/file).
