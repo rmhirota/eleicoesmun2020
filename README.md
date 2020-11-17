@@ -10,9 +10,12 @@ Uma forma mais fácil de ler os dados simplificados das eleições
 municipais de 2020 do TSE. Os dados são puxados diretamente da API do
 TSE.
 
+O pacote foi feito com ajuda do código do [Marco Antonio
+Faganello](https://github.com/marcofaga/eleicoes2020).
+
 ## Instalação
 
-Para instalar o pacote, rode:
+Para instalar o pacote:
 
 ``` r
 # install.packages("devtools")
@@ -46,7 +49,7 @@ download_uf(estado = "RR", cargo = "prefeito", path = "csv")
 
 A função retornará uma tabela com os dados, além de salvar um arquivo
 .csv na pasta indicada em `path`. Caso não queira salvar o arquivo,
-basta ignorar o parâmetro:
+basta ignorar o parâmetro, como no exemplo a seguir:
 
 ``` r
 library(eleicoesmun2020)
@@ -77,6 +80,7 @@ Para baixar informações de *todos* os estados, basta usar o parâmetro
 | coluna             | descricao                      |
 |:-------------------|:-------------------------------|
 | sqcand             | id único do candidato          |
+| n                  | número do candidato na urna    |
 | nm                 | nome do candidato              |
 | e                  | eleito (sim ou não)            |
 | totalizacao\_final | totalização final (sim ou não) |

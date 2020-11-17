@@ -21,9 +21,11 @@ knitr::opts_chunk$set(
 Uma forma mais fácil de ler os dados simplificados das eleições municipais de 2020 do TSE.
 Os dados são puxados diretamente da API do TSE. 
 
+O pacote foi feito com ajuda do código do [Marco Antonio Faganello](https://github.com/marcofaga/eleicoes2020).
+
 ## Instalação
 
-Para instalar o pacote, rode:
+Para instalar o pacote:
 
 ``` r
 # install.packages("devtools")
@@ -39,7 +41,7 @@ library(eleicoesmun2020)
 download_uf(estado = "RR", cargo = "prefeito", path = "csv")
 ```
 
-A função retornará uma tabela com os dados, além de salvar um arquivo .csv na pasta indicada em ```path```. Caso não queira salvar o arquivo, basta ignorar o parâmetro:
+A função retornará uma tabela com os dados, além de salvar um arquivo .csv na pasta indicada em ```path```. Caso não queira salvar o arquivo, basta ignorar o parâmetro, como no exemplo a seguir:
 
 ```{r example2}
 library(eleicoesmun2020)
@@ -55,6 +57,7 @@ Para baixar informações de _todos_ os estados, basta usar o parâmetro ```esta
 tibble::tribble(
               ~coluna,                       ~descricao,
              "sqcand",          "id único do candidato",
+                  "n",    "número do candidato na urna",
                  "nm",              "nome do candidato",
                   "e",            "eleito (sim ou não)",
   "totalizacao_final", "totalização final (sim ou não)"
@@ -64,3 +67,5 @@ tibble::tribble(
 ```
 
 Para entender as informações de cada coluna, verifique a [documentação do TSE](https://www.tse.jus.br/eleicoes/eleicoes-2020/arquivos/ea04-arquivo-de-resultado-consolidado-01-2020/rybena_pdf?file=https://www.tse.jus.br/eleicoes/eleicoes-2020/arquivos/ea04-arquivo-de-resultado-consolidado-01-2020/at_download/file).
+
+
