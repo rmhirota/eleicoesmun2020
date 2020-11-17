@@ -1,0 +1,45 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# eleicoesmun2020
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Uma forma mais fácil de ler os dados simplificados das eleições municipais de 2020 do TSE.
+
+## Instalação
+
+Para instalar o pacote, rode:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("rmhirota/eleicoesmun2020")
+```
+## Exemplo
+
+Baixando dados de eleições à prefetura em Roraima:
+
+```{r example}
+library(eleicoesmun2020)
+
+download_uf(estado = "RR", cargo = "prefeito", path = "csv")
+```
+
+A função retornará uma tabela com os dados, além de salvar um arquivo .csv na pasta indicada em ```path```.
+
+Para baixar informações de _todos_ os estados, basta usar o parâmetro ```estado = "todos"```.
+
+
