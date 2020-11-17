@@ -31,8 +31,8 @@ download_uf_mun <- function(mun, uf, cargo = "prefeito", verbose = FALSE) {
     aux <- cand %>% with(cand) %>%
       dplyr::rename_with(~paste0("cand_", .), .cols = dplyr::everything())
     cand <- cand %>%
-      dplyr::rename_with(~paste0("raiz_", .), .cols = dplyr::everything())
-      dplyr::select(-raiz_cand) %>%
+      dplyr::select(-cand) %>%
+      dplyr::rename_with(~paste0("raiz_", .), .cols = dplyr::everything()) %>%
       dplyr::bind_cols((aux))
 
   } else {
