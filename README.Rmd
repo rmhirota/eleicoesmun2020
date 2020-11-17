@@ -60,7 +60,9 @@ tibble::tribble(
                   "n",    "número do candidato na urna",
                  "nm",              "nome do candidato",
                   "e",            "eleito (sim ou não)",
-  "totalizacao_final", "totalização final (sim ou não)"
+  "totalizacao_final", "totalização final (sim ou não)",
+                "vap", "quantidade de votos computados",
+  "totalizacao_final", "totalização final (sim ou não)",
   ) %>%
   knitr::kable()
 

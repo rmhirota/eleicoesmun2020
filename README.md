@@ -84,6 +84,8 @@ Para baixar informações de *todos* os estados, basta usar o parâmetro
 | nm                 | nome do candidato              |
 | e                  | eleito (sim ou não)            |
 | totalizacao\_final | totalização final (sim ou não) |
+| vap                | quantidade de votos computados |
+| totalizacao\_final | totalização final (sim ou não) |
 
 Para entender as informações de cada coluna, verifique a [documentação
 do
