@@ -32,15 +32,21 @@ download_uf_mun <- function(mun, uf, cargo, verbose = FALSE) {
     if (length(aux) > 0) {
       aux <- aux %>%
         dplyr::rename_with(~paste0("cand_", .), .cols = dplyr::everything())
+      cand <- cand %>%
+        dplyr::select(-cand)
     } else {
+      cand <- j %>% purrr::map(purrr::pluck) %>% unlist()
+      cand <- cand %>%
+        dplyr::as_tibble() %>%
+        dplyr::mutate(name = names(cand)) %>%
+        tidyr::pivot_wider()
       aux <- dplyr::tibble(
-        'seq' = character(), 'sqcand' = character(), 'n' = character(), 'nm' = character(), 'cc' = character(), 'nv' = character(), 'e' = character(), 'st' = character(), 'dvt' = character(), 'vap' = character(), 'pvap' = character()
+        'seq' = NA_character_, 'sqcand' = NA_character_, 'n' = NA_character_, 'nm' = NA_character_, 'cc' = NA_character_, 'nv' = NA_character_, 'e' = NA_character_, 'st' = NA_character_, 'dvt' = NA_character_, 'vap' = NA_character_, 'pvap' = NA_character_
       ) %>%
         dplyr::rename_with(~paste0("cand_", .), .cols = dplyr::everything())
     }
 
     cand <- cand %>%
-      dplyr::select(-cand) %>%
       dplyr::rename_with(~paste0("raiz_", .), .cols = dplyr::everything()) %>%
       dplyr::bind_cols((aux))
 

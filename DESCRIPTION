@@ -24,4 +24,5 @@ Imports:
     tibble,
     magrittr,
     jsonlite,
-    stringr
+    stringr,
+    tidyr
