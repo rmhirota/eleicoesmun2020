@@ -31,15 +31,18 @@ download_uf_mun <- function(mun, uf, cargo, verbose = FALSE) {
     aux <- cand %>% with(cand)
     if (length(aux) > 0) {
       aux <- aux %>%
+        dplyr::mutate(dplyr::across(.fns = as.character)) %>%
         dplyr::rename_with(~paste0("cand_", .), .cols = dplyr::everything())
       cand <- cand %>%
-        dplyr::select(-cand)
+        dplyr::select(-cand) %>%
+        dplyr::mutate(dplyr::across(.fns = as.character))
     } else {
       cand <- j %>% purrr::map(purrr::pluck) %>% unlist()
       cand <- cand %>%
         dplyr::as_tibble() %>%
         dplyr::mutate(name = names(cand)) %>%
-        tidyr::pivot_wider()
+        tidyr::pivot_wider() %>%
+        dplyr::mutate(dplyr::across(.fns = as.character))
       aux <- dplyr::tibble(
         'seq' = NA_character_, 'sqcand' = NA_character_, 'n' = NA_character_, 'nm' = NA_character_, 'cc' = NA_character_, 'nv' = NA_character_, 'e' = NA_character_, 'st' = NA_character_, 'dvt' = NA_character_, 'vap' = NA_character_, 'pvap' = NA_character_
       ) %>%
@@ -93,7 +96,7 @@ download_uf <- function(estado, cargo, path = NULL, verbose = FALSE) {
     t <- ibge_tse %>%
       with(uf) %>%
       unique() %>%
-      purrr::map(download_uf_, cargo, verbose)
+      purrr::map_df(download_uf_, cargo, verbose)
   } else {
     t <- download_uf_(estado, cargo, verbose)
   }
