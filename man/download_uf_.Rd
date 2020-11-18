@@ -9,9 +9,9 @@ download_uf_(estado, cargo_pretendido, verbose = FALSE)
 \arguments{
 \item{estado}{sigla UF}
 
-\item{verbose}{TRUE para ver municípios baixados}
+\item{cargo_pretendido}{cargo pretendido c("prefeito", "vereador")}
 
-\item{cargo}{cargo pretendido c("prefeito", "vereador")}
+\item{verbose}{TRUE para ver municípios baixados}
 }
 \value{
 baixa arquivos em CSV

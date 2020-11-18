@@ -7,7 +7,7 @@
 #'
 #' @return tabela com dados de votação do município
 #'
-download_uf_mun <- function(mun, uf, cargo = "prefeito", verbose = FALSE) {
+download_uf_mun <- function(mun, uf, cargo, verbose = FALSE) {
   url <- "https://resultados.tse.jus.br/oficial/ele2020/divulgacao/oficial/426/dados-simplificados/"
   if (verbose == TRUE) {
     cat(paste0("UF: ", toupper(uf), "\tMun: ", mun, "\n"))
@@ -28,8 +28,17 @@ download_uf_mun <- function(mun, uf, cargo = "prefeito", verbose = FALSE) {
       httr::content(as = "text", encoding = "UTF-8") %>%
       jsonlite::fromJSON()
     cand <- j %>% dplyr::as_tibble()
-    aux <- cand %>% with(cand) %>%
-      dplyr::rename_with(~paste0("cand_", .), .cols = dplyr::everything())
+    aux <- cand %>% with(cand)
+    if (length(aux) > 0) {
+      aux <- aux %>%
+        dplyr::rename_with(~paste0("cand_", .), .cols = dplyr::everything())
+    } else {
+      aux <- dplyr::tibble(
+        'seq' = character(), 'sqcand' = character(), 'n' = character(), 'nm' = character(), 'cc' = character(), 'nv' = character(), 'e' = character(), 'st' = character(), 'dvt' = character(), 'vap' = character(), 'pvap' = character()
+      ) %>%
+        dplyr::rename_with(~paste0("cand_", .), .cols = dplyr::everything())
+    }
+
     cand <- cand %>%
       dplyr::select(-cand) %>%
       dplyr::rename_with(~paste0("raiz_", .), .cols = dplyr::everything()) %>%
@@ -44,7 +53,7 @@ download_uf_mun <- function(mun, uf, cargo = "prefeito", verbose = FALSE) {
 #' Download dados por UF
 #'
 #' @param estado sigla UF
-#' @param cargo cargo pretendido c("prefeito", "vereador")
+#' @param cargo_pretendido cargo pretendido c("prefeito", "vereador")
 #' @param verbose TRUE para ver municípios baixados
 #'
 #' @return baixa arquivos em CSV
@@ -55,12 +64,9 @@ download_uf_ <- function(estado, cargo_pretendido, verbose = FALSE) {
     with(cod_tse_5)
   estado <- tolower(estado)
   cand <- purrr::map_df(cod, download_uf_mun, uf = estado, cargo = cargo_pretendido, verbose = verbose) %>%
-    dplyr::mutate(uf = toupper(estado), cargo_pretendido = toupper(cargo)) %>%
+    dplyr::mutate(uf = toupper(estado), cargo = toupper(cargo_pretendido)) %>%
     dplyr::mutate(dplyr::across(.fns = stringr::str_squish))
 
-  if (verbose == TRUE) {
-    cat(paste0("Arquivo salvo em ", path))
-  }
   return(cand)
 }
 
@@ -81,9 +87,9 @@ download_uf <- function(estado, cargo, path = NULL, verbose = FALSE) {
     t <- ibge_tse %>%
       with(uf) %>%
       unique() %>%
-      purrr::map(download_uf_, cargo)
+      purrr::map(download_uf_, cargo, verbose)
   } else {
-    t <- download_uf_(estado, cargo)
+    t <- download_uf_(estado, cargo, verbose)
   }
 
   if(!is.null(path)) {
@@ -91,6 +97,9 @@ download_uf <- function(estado, cargo, path = NULL, verbose = FALSE) {
     path <- paste0(path, "/", cargo, "_", estado, ".csv") %>%
       gsub("//", "/", .)
     readr::write_csv(t, path)
+    if (verbose == TRUE) {
+      cat(paste0("\nArquivo salvo em ", path, "\n"))
+    }
   }
   return(t)
 }

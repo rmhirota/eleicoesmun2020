@@ -4,7 +4,7 @@
 \alias{download_uf_mun}
 \title{Download dados por município}
 \usage{
-download_uf_mun(mun, uf, cargo = "prefeito", verbose = FALSE)
+download_uf_mun(mun, uf, cargo, verbose = FALSE)
 }
 \arguments{
 \item{mun}{código de município do TSE, ver \link{ibge_tse}}
