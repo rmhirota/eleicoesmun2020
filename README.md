@@ -30,21 +30,36 @@ Baixando dados de eleições à prefeitura em Roraima:
 library(eleicoesmun2020)
 
 download_uf(estado = "RR", cargo = "prefeito", path = "csv")
-#> # A tibble: 65 x 15
-#>    seq   sqcand n     nm    cc    nv    e     st    dvt   vap   pvap  turno
-#>    <chr> <chr>  <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-#>  1 3     23000… 77    VAST… SOLI… THIA… n     Não … Váli… 1126  "  2… 1    
-#>  2 2     23000… 22    GLEY… PL -… ANDE… n     Não … Váli… 1445  "  2… 1    
-#>  3 5     23000… 43    ANAR… PV    TUXA… n     Não … Váli… 299   "   … 1    
-#>  4 4     23000… 10    ZANZ… REPU… PAST… n     Não … Váli… 628   "  1… 1    
-#>  5 1     23000… 15    NUBI… MDB … OZEAS s     Elei… Váli… 1548  "  3… 1    
-#>  6 2     23000… 22    WAGN… PL -… JOSÉ… n     Não … Váli… 2947  "  3… 1    
-#>  7 3     23000… 10    ERLE… REPU… RAIM… n     Não … Váli… 1724  "  2… 1    
-#>  8 1     23000… 55    PEDR… PSD … SIMO… s     Elei… Váli… 3928  "  4… 1    
-#>  9 9     23000… 50    FABI… PSOL  THIA… n     Não … Váli… 1130  "   … 1    
-#> 10 6     23000… 19    PR I… PODE  MAJO… n     Não … Váli… 8303  "   … 1    
-#> # … with 55 more rows, and 3 more variables: totalizacao_final <chr>, uf <chr>,
-#> #   cargo_pretendido <chr>
+#> # A tibble: 65 x 74
+#>    raiz_ele raiz_tpabr raiz_cdabr raiz_carper raiz_t raiz_f raiz_dt raiz_ht
+#>    <chr>    <chr>      <chr>      <chr>       <chr>  <chr>  <chr>   <chr>  
+#>  1 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  2 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  3 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  4 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  5 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  6 426      mu         03050      11          1      o      15/11/… 21:10:…
+#>  7 426      mu         03050      11          1      o      15/11/… 21:10:…
+#>  8 426      mu         03050      11          1      o      15/11/… 21:10:…
+#>  9 426      mu         03018      11          1      o      15/11/… 22:00:…
+#> 10 426      mu         03018      11          1      o      15/11/… 22:00:…
+#> # … with 55 more rows, and 66 more variables: raiz_dv <chr>, raiz_tf <chr>,
+#> #   raiz_v <chr>, raiz_esae <chr>, raiz_mnae <chr>, raiz_s <chr>,
+#> #   raiz_st <chr>, raiz_pst <chr>, raiz_snt <chr>, raiz_psnt <chr>,
+#> #   raiz_si <chr>, raiz_psi <chr>, raiz_sni <chr>, raiz_psni <chr>,
+#> #   raiz_sa <chr>, raiz_psa <chr>, raiz_sna <chr>, raiz_psna <chr>,
+#> #   raiz_e <chr>, raiz_ea <chr>, raiz_pea <chr>, raiz_ena <chr>,
+#> #   raiz_pena <chr>, raiz_esi <chr>, raiz_pesi <chr>, raiz_esni <chr>,
+#> #   raiz_pesni <chr>, raiz_c <chr>, raiz_pc <chr>, raiz_a <chr>, raiz_pa <chr>,
+#> #   raiz_vscv <chr>, raiz_vnom <chr>, raiz_pvnom <chr>, raiz_vvc <chr>,
+#> #   raiz_pvvc <chr>, raiz_vb <chr>, raiz_pvb <chr>, raiz_tvn <chr>,
+#> #   raiz_ptvn <chr>, raiz_vn <chr>, raiz_pvn <chr>, raiz_vnt <chr>,
+#> #   raiz_pvnt <chr>, raiz_vp <chr>, raiz_pvp <chr>, raiz_vv <chr>,
+#> #   raiz_pvv <chr>, raiz_van <chr>, raiz_pvan <chr>, raiz_vansj <chr>,
+#> #   raiz_pvansj <chr>, raiz_tv <chr>, cand_seq <chr>, cand_sqcand <chr>,
+#> #   cand_n <chr>, cand_nm <chr>, cand_cc <chr>, cand_nv <chr>, cand_e <chr>,
+#> #   cand_st <chr>, cand_dvt <chr>, cand_vap <chr>, cand_pvap <chr>, uf <chr>,
+#> #   cargo <chr>
 ```
 
 A função retornará uma tabela com os dados, além de salvar um arquivo
@@ -55,21 +70,36 @@ basta ignorar o parâmetro, como no exemplo a seguir:
 library(eleicoesmun2020)
 
 download_uf(estado = "RR", cargo = "prefeito")
-#> # A tibble: 65 x 15
-#>    seq   sqcand n     nm    cc    nv    e     st    dvt   vap   pvap  turno
-#>    <chr> <chr>  <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-#>  1 3     23000… 77    VAST… SOLI… THIA… n     Não … Váli… 1126  "  2… 1    
-#>  2 2     23000… 22    GLEY… PL -… ANDE… n     Não … Váli… 1445  "  2… 1    
-#>  3 5     23000… 43    ANAR… PV    TUXA… n     Não … Váli… 299   "   … 1    
-#>  4 4     23000… 10    ZANZ… REPU… PAST… n     Não … Váli… 628   "  1… 1    
-#>  5 1     23000… 15    NUBI… MDB … OZEAS s     Elei… Váli… 1548  "  3… 1    
-#>  6 2     23000… 22    WAGN… PL -… JOSÉ… n     Não … Váli… 2947  "  3… 1    
-#>  7 3     23000… 10    ERLE… REPU… RAIM… n     Não … Váli… 1724  "  2… 1    
-#>  8 1     23000… 55    PEDR… PSD … SIMO… s     Elei… Váli… 3928  "  4… 1    
-#>  9 9     23000… 50    FABI… PSOL  THIA… n     Não … Váli… 1130  "   … 1    
-#> 10 6     23000… 19    PR I… PODE  MAJO… n     Não … Váli… 8303  "   … 1    
-#> # … with 55 more rows, and 3 more variables: totalizacao_final <chr>, uf <chr>,
-#> #   cargo_pretendido <chr>
+#> # A tibble: 65 x 74
+#>    raiz_ele raiz_tpabr raiz_cdabr raiz_carper raiz_t raiz_f raiz_dt raiz_ht
+#>    <chr>    <chr>      <chr>      <chr>       <chr>  <chr>  <chr>   <chr>  
+#>  1 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  2 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  3 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  4 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  5 426      mu         03042      11          1      o      15/11/… 21:37:…
+#>  6 426      mu         03050      11          1      o      15/11/… 21:10:…
+#>  7 426      mu         03050      11          1      o      15/11/… 21:10:…
+#>  8 426      mu         03050      11          1      o      15/11/… 21:10:…
+#>  9 426      mu         03018      11          1      o      15/11/… 22:00:…
+#> 10 426      mu         03018      11          1      o      15/11/… 22:00:…
+#> # … with 55 more rows, and 66 more variables: raiz_dv <chr>, raiz_tf <chr>,
+#> #   raiz_v <chr>, raiz_esae <chr>, raiz_mnae <chr>, raiz_s <chr>,
+#> #   raiz_st <chr>, raiz_pst <chr>, raiz_snt <chr>, raiz_psnt <chr>,
+#> #   raiz_si <chr>, raiz_psi <chr>, raiz_sni <chr>, raiz_psni <chr>,
+#> #   raiz_sa <chr>, raiz_psa <chr>, raiz_sna <chr>, raiz_psna <chr>,
+#> #   raiz_e <chr>, raiz_ea <chr>, raiz_pea <chr>, raiz_ena <chr>,
+#> #   raiz_pena <chr>, raiz_esi <chr>, raiz_pesi <chr>, raiz_esni <chr>,
+#> #   raiz_pesni <chr>, raiz_c <chr>, raiz_pc <chr>, raiz_a <chr>, raiz_pa <chr>,
+#> #   raiz_vscv <chr>, raiz_vnom <chr>, raiz_pvnom <chr>, raiz_vvc <chr>,
+#> #   raiz_pvvc <chr>, raiz_vb <chr>, raiz_pvb <chr>, raiz_tvn <chr>,
+#> #   raiz_ptvn <chr>, raiz_vn <chr>, raiz_pvn <chr>, raiz_vnt <chr>,
+#> #   raiz_pvnt <chr>, raiz_vp <chr>, raiz_pvp <chr>, raiz_vv <chr>,
+#> #   raiz_pvv <chr>, raiz_van <chr>, raiz_pvan <chr>, raiz_vansj <chr>,
+#> #   raiz_pvansj <chr>, raiz_tv <chr>, cand_seq <chr>, cand_sqcand <chr>,
+#> #   cand_n <chr>, cand_nm <chr>, cand_cc <chr>, cand_nv <chr>, cand_e <chr>,
+#> #   cand_st <chr>, cand_dvt <chr>, cand_vap <chr>, cand_pvap <chr>, uf <chr>,
+#> #   cargo <chr>
 ```
 
 Para baixar informações de *todos* os estados, basta usar o parâmetro
@@ -77,15 +107,15 @@ Para baixar informações de *todos* os estados, basta usar o parâmetro
 
 ## Principais variáveis
 
-| coluna             | descricao                      |
-|:-------------------|:-------------------------------|
-| sqcand             | id único do candidato          |
-| n                  | número do candidato na urna    |
-| nm                 | nome do candidato              |
-| e                  | eleito (sim ou não)            |
-| totalizacao\_final | totalização final (sim ou não) |
-| vap                | quantidade de votos computados |
-| totalizacao\_final | totalização final (sim ou não) |
+| coluna       | descricao                                   |
+|:-------------|:--------------------------------------------|
+| cand\_sqcand | id único do candidato                       |
+| cand\_n      | número do candidato na urna                 |
+| cand\_nm     | nome do candidato                           |
+| cand\_e      | eleito (sim ou não)                         |
+| raiz\_tf     | totalização final (sim ou não)              |
+| raiz\_tv     | total de votos                              |
+| cand\_vap    | quantidade de votos computados ao candidato |
 
 Para entender as informações de cada coluna, verifique a [documentação
 do

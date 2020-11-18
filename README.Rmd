@@ -55,14 +55,14 @@ Para baixar informações de _todos_ os estados, basta usar o parâmetro ```esta
 
 ```{r variaveis, echo = FALSE}
 tibble::tribble(
-              ~coluna,                       ~descricao,
-             "sqcand",          "id único do candidato",
-                  "n",    "número do candidato na urna",
-                 "nm",              "nome do candidato",
-                  "e",            "eleito (sim ou não)",
-  "totalizacao_final", "totalização final (sim ou não)",
-                "vap", "quantidade de votos computados",
-  "totalizacao_final", "totalização final (sim ou não)",
+              ~coluna,                                     ~descricao,
+         "cand_sqcand",                       "id único do candidato",
+              "cand_n",                 "número do candidato na urna",
+             "cand_nm",                           "nome do candidato",
+              "cand_e",                         "eleito (sim ou não)",
+             "raiz_tf",              "totalização final (sim ou não)",
+             "raiz_tv",                              "total de votos",
+            "cand_vap", "quantidade de votos computados ao candidato",
   ) %>%
   knitr::kable()
 
