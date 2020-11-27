@@ -3,12 +3,22 @@
 #' @param mun código de município do TSE, ver [ibge_tse]
 #' @param uf sigla UF
 #' @param cargo cargo pretendido c("prefeito", "vereador")
+#' @param turno turno (1 ou)
 #' @param verbose TRUE para ver municípios baixados
 #'
 #' @return tabela com dados de votação do município
 #'
-download_uf_mun <- function(mun, uf, cargo, verbose = FALSE) {
-  url <- "https://resultados.tse.jus.br/oficial/ele2020/divulgacao/oficial/426/dados-simplificados/"
+download_uf_mun <- function(mun, uf, cargo, turno, verbose = FALSE) {
+
+  url <- "https://resultados.tse.jus.br/oficial/ele2020/divulgacao/oficial/"
+
+  if (turno == 1) {
+    url <- paste0(url, "426/dados-simplificados/")
+  }
+  if (turno == 2) {
+    url <- paste0(url, "427/dados-simplificados/")
+  }
+
   if (verbose == TRUE) {
     cat(paste0("UF: ", toupper(uf), "\tMun: ", mun, "\n"))
   }
@@ -63,17 +73,18 @@ download_uf_mun <- function(mun, uf, cargo, verbose = FALSE) {
 #'
 #' @param estado sigla UF
 #' @param cargo_pretendido cargo pretendido c("prefeito", "vereador")
+#' @param t turno (1 ou 2)
 #' @param verbose TRUE para ver municípios baixados
 #'
 #' @return baixa arquivos em CSV
 #'
-download_uf_ <- function(estado, cargo_pretendido, verbose = FALSE) {
+download_uf_ <- function(estado, cargo_pretendido, t, verbose = FALSE) {
   cod <- ibge_tse %>%
     dplyr::filter(uf == estado) %>%
     with(cod_tse_5)
   estado <- tolower(estado)
-  cand <- purrr::map_df(cod, download_uf_mun, uf = estado, cargo = cargo_pretendido, verbose = verbose) %>%
-    dplyr::mutate(uf = toupper(estado), cargo = toupper(cargo_pretendido)) %>%
+  cand <- purrr::map_df(cod, download_uf_mun, turno = t, uf = estado, cargo = cargo_pretendido, verbose = verbose) %>%
+    dplyr::mutate(uf = toupper(estado), cargo = toupper(cargo_pretendido), turno = t) %>%
     dplyr::mutate(dplyr::across(.fns = stringr::str_squish))
 
   return(cand)
@@ -83,6 +94,7 @@ download_uf_ <- function(estado, cargo_pretendido, verbose = FALSE) {
 #'
 #' @param estado sigla UF (ou "todos")
 #' @param cargo cargo pretendido c("prefeito", "vereador")
+#' @param turno turno (1 ou 2)
 #' @param verbose TRUE para ver municípios baixados
 #' @param path pasta onde salvar os arquivos CSV
 #'
@@ -90,20 +102,20 @@ download_uf_ <- function(estado, cargo_pretendido, verbose = FALSE) {
 #'
 #' @export
 #'
-download_uf <- function(estado, cargo, path = NULL, verbose = FALSE) {
+download_uf <- function(estado, cargo, turno, path = NULL, verbose = FALSE) {
 
   if(estado == "todos") {
     t <- ibge_tse %>%
       with(uf) %>%
       unique() %>%
-      purrr::map_df(download_uf_, cargo, verbose)
+      purrr::map_df(download_uf_, cargo, turno, verbose)
   } else {
-    t <- download_uf_(estado, cargo, verbose)
+    t <- download_uf_(estado, cargo, turno, verbose)
   }
 
   if(!is.null(path)) {
     dir.create(path, showWarnings = FALSE)
-    path <- paste0(path, "/", cargo, "_", estado, ".csv") %>%
+    path <- paste0(path, "/", cargo, "_", turno, "turno_", estado, ".csv") %>%
       gsub("//", "/", .)
     readr::write_csv(t, path)
     if (verbose == TRUE) {

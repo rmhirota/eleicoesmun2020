@@ -4,12 +4,14 @@
 \alias{download_uf}
 \title{Download dados por UF}
 \usage{
-download_uf(estado, cargo, path = NULL, verbose = FALSE)
+download_uf(estado, cargo, turno, path = NULL, verbose = FALSE)
 }
 \arguments{
 \item{estado}{sigla UF (ou "todos")}
 
 \item{cargo}{cargo pretendido c("prefeito", "vereador")}
+
+\item{turno}{turno (1 ou 2)}
 
 \item{path}{pasta onde salvar os arquivos CSV}
 

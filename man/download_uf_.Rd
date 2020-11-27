@@ -4,12 +4,14 @@
 \alias{download_uf_}
 \title{Download dados por UF}
 \usage{
-download_uf_(estado, cargo_pretendido, verbose = FALSE)
+download_uf_(estado, cargo_pretendido, t, verbose = FALSE)
 }
 \arguments{
 \item{estado}{sigla UF}
 
 \item{cargo_pretendido}{cargo pretendido c("prefeito", "vereador")}
+
+\item{t}{turno (1 ou 2)}
 
 \item{verbose}{TRUE para ver municípios baixados}
 }
