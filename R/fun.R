@@ -13,10 +13,12 @@ download_uf_mun <- function(mun, uf, cargo, turno, verbose = FALSE) {
   url <- "https://resultados.tse.jus.br/oficial/ele2020/divulgacao/oficial/"
 
   if (turno == 1) {
-    url <- paste0(url, "426/dados-simplificados/")
+    cod_turno <- "426"
+    url <- paste0(url, cod_turno, "/dados-simplificados/")
   }
   if (turno == 2) {
-    url <- paste0(url, "427/dados-simplificados/")
+    cod_turno <- "427"
+    url <- paste0(url, cod_turno, "/dados-simplificados/")
   }
 
   if (verbose == TRUE) {
@@ -25,10 +27,10 @@ download_uf_mun <- function(mun, uf, cargo, turno, verbose = FALSE) {
 
   cargo <- tolower(cargo)
   if (cargo == "prefeito") {
-    url <- paste0(url, uf, "/", uf, mun, "-c0011-e000426-r.json")
+    url <- paste0(url, uf, "/", uf, mun, "-c0011-e000", cod_turno, "-r.json")
   }
   if (cargo == "vereador") {
-    url <- paste0(url, uf, "/", uf, mun, "-c0013-e000426-r.json")
+    url <- paste0(url, uf, "/", uf, mun, "-c0013-e000", cod_turno, "-r.json")
   }
 
   req <- httr::GET(url)
